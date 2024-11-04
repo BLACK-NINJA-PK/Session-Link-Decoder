@@ -142,4 +142,6 @@ check_for_updates()  # Check for updates before allowing user input
 
 # Allow user input for session link
 session_link = input("\nEnter your session link: ")
+clear_console()  # Clear the console after user input
+create_gradient_banner(banner_text)  # Re-display the banner after clearing
 decode_session_link(session_link)  # Decode the provided session link without clearing the console again
