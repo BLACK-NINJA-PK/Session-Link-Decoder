@@ -32,9 +32,7 @@ def create_gradient_banner(text):
             print(colors[2] + line)  # Red
 
 def gradient_text(text, colors):
-    """
-    Apply a gradient to the text using the provided list of colors.
-    """
+    """Apply a gradient to the text using the provided list of colors."""
     gradient_output = ""
     for i, char in enumerate(text):
         gradient_output += colors[i % len(colors)] + char
@@ -93,7 +91,7 @@ def decode_session_link(url):
 
 # Main execution
 banner_text = "NINJA"
-clear_console()  # Clear the console
+clear_console()  # Clear the console before the banner
 create_gradient_banner(banner_text)  # Create and display the gradient banner
 
 # Display social media usernames
@@ -109,5 +107,4 @@ for platform_name, username in social_media_usernames:
 
 # Allow user input for session link
 session_link = input("\nEnter your session link: ")
-clear_console()  # Clear the console before printing decoded data
-decode_session_link(session_link)
+decode_session_link(session_link)  # Decode the provided session link without clearing the console again
