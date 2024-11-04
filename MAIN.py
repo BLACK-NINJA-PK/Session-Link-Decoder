@@ -1,5 +1,6 @@
 import urllib.parse
 import json
+import re
 from datetime import datetime, timezone
 from termcolor import colored
 from colorama import init, Fore, Style
@@ -47,6 +48,12 @@ def gradient_text(text, colors):
     for i, char in enumerate(text):
         gradient_output += colors[i % len(colors)] + char
     return gradient_output
+
+def is_valid_session_link(url):
+    """Validate the session link format."""
+    # A simple regex for checking if the URL contains a specific pattern for session links
+    pattern = re.compile(r'^https?://.*#tgWebAppData=.*')
+    return bool(pattern.match(url))
 
 def decode_session_link(url):
     # Split URL to extract the fragment (data after #)
@@ -147,7 +154,14 @@ for platform_name, username in social_media_usernames:
 check_for_updates()  # Check for updates before allowing user input
 
 # Allow user input for session link
-session_link = input(colored("\nEnter your session link: ", 'cyan'))  # Color the input prompt
+while True:
+    session_link = input(colored("\nEnter your session link: ", 'cyan'))  # Color the input prompt
+
+    # Validate the session link
+    if is_valid_session_link(session_link):
+        break  # Exit the loop if the link is valid
+    else:
+        print(colored("Please enter a correct session link.", 'red'))
 
 # Clear console after user input
 clear_console()
