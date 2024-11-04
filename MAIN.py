@@ -1,0 +1,113 @@
+import urllib.parse
+import json
+from datetime import datetime, timezone
+from termcolor import colored
+from colorama import init, Fore, Style
+import os
+import platform
+import pyfiglet
+
+# Initialize colorama
+init(autoreset=True)
+
+def clear_console():
+    """Clear the console screen."""
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+
+def create_gradient_banner(text):
+    """Create a gradient banner from the provided text."""
+    banner = pyfiglet.figlet_format(text, font='slant').splitlines()
+    colors = [Fore.GREEN + Style.BRIGHT, Fore.YELLOW + Style.BRIGHT, Fore.RED + Style.BRIGHT]
+    total_lines = len(banner)
+    section_size = total_lines // len(colors)
+    for i, line in enumerate(banner):
+        if i < section_size:
+            print(colors[0] + line)  # Green
+        elif i < section_size * 2:
+            print(colors[1] + line)  # Yellow
+        else:
+            print(colors[2] + line)  # Red
+
+def gradient_text(text, colors):
+    """
+    Apply a gradient to the text using the provided list of colors.
+    """
+    gradient_output = ""
+    for i, char in enumerate(text):
+        gradient_output += colors[i % len(colors)] + char
+    return gradient_output
+
+def decode_session_link(url):
+    # Split URL to extract the fragment (data after #)
+    parsed_url = urllib.parse.urlparse(url)
+    fragment = parsed_url.fragment
+    
+    # Parse the fragment into a dictionary
+    fragment_params = urllib.parse.parse_qs(fragment)
+    
+    # Decode tgWebAppData if present
+    tg_web_app_data = fragment_params.get('tgWebAppData', [''])[0]
+    decoded_data = urllib.parse.parse_qs(tg_web_app_data)
+
+    # Extract and decode fields
+    query_id = decoded_data.get('query_id', [''])[0]
+    user_data_encoded = decoded_data.get('user', [''])[0]
+    auth_date = decoded_data.get('auth_date', [''])[0]
+    hash_value = decoded_data.get('hash', [''])[0]
+
+    # Decode user data JSON
+    user_data_json = urllib.parse.unquote(user_data_encoded)
+    user_data = json.loads(user_data_json)
+
+    # Convert auth_date to a timezone-aware, human-readable format
+    auth_date_timestamp = int(auth_date)
+    auth_date_readable = datetime.fromtimestamp(auth_date_timestamp, timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+
+    # Reconstruct the full tgWebAppData query string
+    reconstructed_data = (
+        f"query_id={query_id}&"
+        f"user={urllib.parse.quote(user_data_json)}&"
+        f"auth_date={auth_date}&"
+        f"hash={hash_value}"
+    )
+
+    # Output extracted values with gradient colors
+    colors = [Fore.LIGHTBLUE_EX, Fore.LIGHTCYAN_EX, Fore.LIGHTGREEN_EX]
+
+    print(gradient_text("Decoded Session Link Data:", colors))
+    print(f"{colored('Reconstructed tgWebAppData Query:', 'cyan')} {reconstructed_data}")
+    print(f"{colored('Auth Date (Unix):', 'yellow')} {auth_date}")
+    print(f"{colored('Auth Date (Readable):', 'green')} {auth_date_readable}")
+
+    # Print user data in a labeled, formatted style
+    print(gradient_text("User Data:", colors))
+    print(f"{colored('User ID:', 'cyan')} {user_data.get('id')}")
+    print(f"{colored('First Name:', 'cyan')} {user_data.get('first_name')}")
+    print(f"{colored('Last Name:', 'cyan')} {user_data.get('last_name')}")
+    print(f"{colored('Username:', 'cyan')} {user_data.get('username')}")
+    print(f"{colored('Language Code:', 'cyan')} {user_data.get('language_code')}")
+    print(f"{colored('Allows Write to PM:', 'cyan')} {user_data.get('allows_write_to_pm')}")
+
+# Main execution
+banner_text = "NINJA"
+clear_console()  # Clear the console
+create_gradient_banner(banner_text)  # Create and display the gradient banner
+
+# Display social media usernames
+social_media_usernames = [
+    ("TELEGRAM", "@black_ninja_pk"),
+    ("TELEGRAM", "@black_ninja_pk"),
+    ("Coder", "@demoncratos"),
+]
+
+print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
+for platform_name, username in social_media_usernames:
+    print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+
+# Allow user input for session link
+session_link = input("\nEnter your session link: ")
+clear_console()  # Clear the console before printing decoded data
+decode_session_link(session_link)
