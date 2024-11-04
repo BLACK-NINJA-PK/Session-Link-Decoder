@@ -95,6 +95,7 @@ def decode_session_link(url):
     # Output extracted values with gradient colors
     colors = [Fore.LIGHTBLUE_EX, Fore.LIGHTCYAN_EX, Fore.LIGHTGREEN_EX]
 
+    display_banner_and_social()  # Display banner and social media info before output
     print(gradient_text("Decoded Session Link Data:", colors))
     print(f"{colored('Reconstructed tgWebAppData Query:', 'cyan')} {reconstructed_data}")
     print(f"{colored('Auth Date (Unix):', 'yellow')} {auth_date}")
