@@ -148,7 +148,9 @@ check_for_updates()  # Check for updates before allowing user input
 
 # Allow user input for session link
 session_link = input(colored("\nEnter your session link: ", 'cyan'))  # Color the input prompt
-clear_console()  # Clear the console after user input
+
+# Clear console after user input
+clear_console()
 
 # Re-display the banner and social media information
 create_gradient_banner(banner_text)  # Re-display the banner
