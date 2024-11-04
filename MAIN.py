@@ -143,5 +143,12 @@ check_for_updates()  # Check for updates before allowing user input
 # Allow user input for session link
 session_link = input("\nEnter your session link: ")
 clear_console()  # Clear the console after user input
-create_gradient_banner(banner_text)  # Re-display the banner after clearing
+
+# Re-display the banner and social media information
+create_gradient_banner(banner_text)  # Re-display the banner
+print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
+for platform_name, username in social_media_usernames:
+    print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+
+# Decode the provided session link
 decode_session_link(session_link)  # Decode the provided session link without clearing the console again
