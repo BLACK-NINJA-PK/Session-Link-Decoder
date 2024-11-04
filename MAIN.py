@@ -89,6 +89,9 @@ def decode_session_link(url):
         f"hash={hash_value}"
     )
 
+    # Clear console before output
+    clear_console()
+
     # Output extracted values with gradient colors
     colors = [Fore.LIGHTBLUE_EX, Fore.LIGHTCYAN_EX, Fore.LIGHTGREEN_EX]
 
