@@ -10,6 +10,7 @@ import requests
 import subprocess
 import sys
 import time
+import random  # Import random for random design selection
 
 # Initialize colorama
 init(autoreset=True)
@@ -22,11 +23,16 @@ def clear_console():
         os.system("clear")
 
 def create_gradient_banner(text):
-    """Create a gradient banner from the provided text."""
-    banner = pyfiglet.figlet_format(text, font='slant').splitlines()
+    """Create a gradient banner from the provided text using a random font."""
+    # List of different pyfiglet fonts
+    fonts = ['slant', 'banner3-D', 'block', 'digital', 'banner', 'isometric1']
+    selected_font = random.choice(fonts)  # Randomly select a font
+    banner = pyfiglet.figlet_format(text, font=selected_font).splitlines()
+    
     colors = [Fore.GREEN + Style.BRIGHT, Fore.YELLOW + Style.BRIGHT, Fore.RED + Style.BRIGHT]
     total_lines = len(banner)
     section_size = total_lines // len(colors)
+    
     for i, line in enumerate(banner):
         if i < section_size:
             print(colors[0] + line)  # Green
@@ -141,7 +147,7 @@ for platform_name, username in social_media_usernames:
 check_for_updates()  # Check for updates before allowing user input
 
 # Allow user input for session link
-session_link = input("\nEnter your session link: ")
+session_link = input(colored("\nEnter your session link: ", 'cyan'))  # Color the input prompt
 clear_console()  # Clear the console after user input
 
 # Re-display the banner and social media information
