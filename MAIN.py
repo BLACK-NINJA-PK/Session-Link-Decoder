@@ -134,21 +134,25 @@ def update_script():
     except subprocess.CalledProcessError as e:
         print(Fore.RED + f"Failed to update the script: {e}")
 
+def display_banner_and_social():
+    """Display the banner and social media usernames."""
+    clear_console()  # Clear the console before the banner
+    create_gradient_banner(banner_text)  # Create and display the gradient banner
+
+    # Display social media usernames
+    print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
+    for platform_name, username in social_media_usernames:
+        print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+
 # Main execution
 banner_text = "NINJA"
-clear_console()  # Clear the console before the banner
-create_gradient_banner(banner_text)  # Create and display the gradient banner
-
-# Display social media usernames
 social_media_usernames = [
     ("TELEGRAM", "@black_ninja_pk"),
     ("TELEGRAM", "@black_ninja_pk"),
     ("Coder", "@crazy_arain"),
 ]
 
-print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
-for platform_name, username in social_media_usernames:
-    print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+display_banner_and_social()  # Initial display of banner and social media usernames
 
 # Check for updates
 check_for_updates()  # Check for updates before allowing user input
@@ -162,15 +166,7 @@ while True:
         break  # Exit the loop if the link is valid
     else:
         print(colored("Please enter a correct session link.", 'red'))
-
-# Clear console after user input
-clear_console()
-
-# Re-display the banner and social media information
-create_gradient_banner(banner_text)  # Re-display the banner
-print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
-for platform_name, username in social_media_usernames:
-    print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+        display_banner_and_social()  # Display banner and social media info again on invalid input
 
 # Decode the provided session link
 decode_session_link(session_link)  # Decode the provided session link without clearing the console again
