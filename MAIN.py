@@ -11,7 +11,7 @@ import requests
 import subprocess
 import sys
 import time
-import random  # Import random for random design selection
+import random
 
 # Initialize colorama
 init(autoreset=True)
@@ -35,11 +35,11 @@ def create_gradient_banner(text):
     
     for i, line in enumerate(banner):
         if i < section_size:
-            print(colors[0] + line)  # Green
+            print(colors[0] + line)
         elif i < section_size * 2:
-            print(colors[1] + line)  # Yellow
+            print(colors[1] + line)
         else:
-            print(colors[2] + line)  # Red
+            print(colors[2] + line)
 
 def gradient_text(text, colors):
     """Apply a gradient to the text using the provided list of colors."""
@@ -93,7 +93,6 @@ def decode_session_link(url):
     print(f"{colored('Language Code:', 'cyan')} {user_data.get('language_code')}")
     print(f"{colored('Allows Write to PM:', 'cyan')} {user_data.get('allows_write_to_pm')}")
 
-# Function to check for updates from the GitHub repository
 def check_for_updates():
     print(Fore.YELLOW + "Checking for updates...")
     repo_url = 'BLACK-NINJA-PK/URL_DECODER'
@@ -108,16 +107,17 @@ def check_for_updates():
     else:
         print(Fore.GREEN + "Your script is up to date.")
 
-# Function to pull the latest changes from the repository
 def update_script():
     try:
-        subprocess.run(["git", "pull"], check=True)
+        subprocess.run(["git", "pull"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(Fore.GREEN + "Script updated successfully!")
         time.sleep(2)
-        print(Fore.CYAN + f"\nTo run the script again, use the command:\npython {MAIN.py} ")
-        sys.exit(0)  # Close the script after printing the command
+        print(Fore.CYAN + f"\nTo run the script again, use the command:\npython {__file__}")
+        sys.exit(0)
     except subprocess.CalledProcessError as e:
         print(Fore.RED + f"Failed to update the script: {e}")
+    except PermissionError:
+        print(Fore.RED + "Permission denied. Try running the script with elevated permissions (e.g., 'sudo').")
 
 def display_banner_and_social():
     clear_console()
