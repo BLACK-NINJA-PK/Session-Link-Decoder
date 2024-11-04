@@ -6,6 +6,10 @@ from colorama import init, Fore, Style
 import os
 import platform
 import pyfiglet
+import requests
+import subprocess
+import sys
+import time
 
 # Initialize colorama
 init(autoreset=True)
@@ -89,6 +93,34 @@ def decode_session_link(url):
     print(f"{colored('Language Code:', 'cyan')} {user_data.get('language_code')}")
     print(f"{colored('Allows Write to PM:', 'cyan')} {user_data.get('allows_write_to_pm')}")
 
+# Function to check for updates from the GitHub repository
+def check_for_updates():
+    print(Fore.YELLOW + "Checking for updates...")
+    repo_url = 'BLACK-NINJA-PK/URL_DECODER'  # Updated GitHub repository
+    # Get the latest commit hash from the GitHub repository
+    api_url = f'https://api.github.com/repos/{repo_url}/commits/main'
+    response = requests.get(api_url)
+    latest_commit = response.json().get('sha')
+    
+    # Get the current commit hash
+    current_commit = subprocess.check_output(["git", "rev-parse", "HEAD"]).strip().decode()
+
+    if latest_commit != current_commit:
+        print(Fore.RED + "New update available. Updating...")
+        update_script()
+    else:
+        print(Fore.GREEN + "Your script is up to date.")
+
+# Function to pull the latest changes from the repository
+def update_script():
+    try:
+        subprocess.run(["git", "pull"], check=True)
+        print(Fore.GREEN + "Script updated successfully!")
+        time.sleep(2)
+        os.execv(__file__, ['python'] + sys.argv)  # Restart the script
+    except subprocess.CalledProcessError as e:
+        print(Fore.RED + f"Failed to update the script: {e}")
+
 # Main execution
 banner_text = "NINJA"
 clear_console()  # Clear the console before the banner
@@ -98,12 +130,15 @@ create_gradient_banner(banner_text)  # Create and display the gradient banner
 social_media_usernames = [
     ("TELEGRAM", "@black_ninja_pk"),
     ("TELEGRAM", "@black_ninja_pk"),
-    ("Coder", "@demoncratos"),
+    ("Coder", "@crazy_arain"),
 ]
 
 print(gradient_text("Follow us on:", [Fore.LIGHTMAGENTA_EX, Fore.LIGHTCYAN_EX]))
 for platform_name, username in social_media_usernames:
     print(f"{colored(platform_name + ':', 'cyan')} {colored(username, 'green')}")
+
+# Check for updates
+check_for_updates()  # Check for updates before allowing user input
 
 # Allow user input for session link
 session_link = input("\nEnter your session link: ")
