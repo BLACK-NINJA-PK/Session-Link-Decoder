@@ -1,15 +1,20 @@
 # URL Decoder Tool
 
-## Description
-The URL Decoder Tool is a Python script designed to decode session links from Telegram web applications. It extracts and displays user data embedded within the link, including user ID, first name, last name, username, and authentication date. This tool also includes a feature to check for and pull the latest updates from a GitHub repository.
+## Overview
+The **URL Decoder Tool** is a Python script specifically crafted for decoding session links from Telegram web applications. This tool effectively extracts and displays essential user information embedded within the link, including:
 
-#### How To use it:
+- **User ID**
+- **First Name**
+- **Last Name**
+- **Username**
+- **Authentication Date**
 
-$ pkg update && upgrade -y
-$ pkg install git
-$ pkg install python 
-$ git clone https://github.com/BLACK-NINJA-PK/URL_DECODER/
-$ cd URL_DECODER 
-$ pip3 install requirements.txt 
-$ python MAIN.py
+Additionally, the tool features a capability to check for and retrieve the latest updates from its GitHub repository, ensuring you are always using the most up-to-date version.
 
+## Installation Instructions
+
+To set up the URL Decoder Tool on your system, follow these steps:
+
+1. **Update and Upgrade Packages**
+   ```bash
+   pkg update && pkg upgrade -y
