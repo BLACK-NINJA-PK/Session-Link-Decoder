@@ -19,7 +19,46 @@ To set up the URL Decoder Tool on your system, follow these steps:
 1. **Update and Upgrade Packages**
    ```bash
    pkg update && pkg upgrade -y
-   1. **Update and Upgrade Packages**
+   ```
+2. **Install Python**
+    ```bash
+     pkg install python
+    ```
+3. **Install Git**
    ```bash
-   pkg update && pkg upgrade -y
+   pkg install git
+   ```
+4. **Clone Repo**
+ ```bash
+ git clone https://github.com/BLACK-NINJA-PK/URL_DECODER/
+```
+5. **Enter In Repo**
+  ```bash
+   cd URL_DECODER
+ ```
+6. **Install requirements**
+   ```bash
+   pip3 install requirements.txt
+   ```
+7. **Run Tool**
+   ```bash
+    python  main.PY
+   ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+   
+   
    
