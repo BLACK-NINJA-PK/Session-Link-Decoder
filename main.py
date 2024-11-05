@@ -112,7 +112,7 @@ def update_script():
         subprocess.run(["git", "pull"], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(Fore.GREEN + "Script updated successfully!")
         time.sleep(2)
-        print(Fore.CYAN + f"\nTo run the script again, use the command:\npython {__file__}")
+        print(Fore.CYAN + f"\nTo run the script again, use the command:\npython {os.path.basename(__file__)}")
         sys.exit(0)
     except subprocess.CalledProcessError as e:
         print(Fore.RED + f"Failed to update the script: {e}")
