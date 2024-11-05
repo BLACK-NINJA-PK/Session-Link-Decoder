@@ -8,7 +8,7 @@ The URL Decoder Tool is a Python script designed to decode session links from Te
 $ pkg update && upgrade -y
 $ pkg install git
 $ pkg install python 
-$ git clone 
+$ git clone https://github.com/BLACK-NINJA-PK/URL_DECODER/
 $ cd URL_DECODER 
 $ pip3 install requirements.txt 
 $ python MAIN.py
