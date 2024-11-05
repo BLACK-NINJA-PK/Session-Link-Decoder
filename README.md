@@ -4,6 +4,7 @@
 The **URL Decoder Tool** is a Python script specifically crafted for decoding session links from Telegram web applications. This tool effectively extracts and displays essential user information embedded within the link, including:
 
 - **User ID**
+- **Quert_ID**
 - **First Name**
 - **Last Name**
 - **Username**
@@ -18,3 +19,7 @@ To set up the URL Decoder Tool on your system, follow these steps:
 1. **Update and Upgrade Packages**
    ```bash
    pkg update && pkg upgrade -y
+   1. **Update and Upgrade Packages**
+   ```bash
+   pkg update && pkg upgrade -y
+   
